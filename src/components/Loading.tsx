@@ -15,8 +15,8 @@ const Loading = ({ percent }: { percent: number }) => {
       setLoaded(true);
       setTimeout(() => {
         setIsLoaded(true);
-      }, 1000);
-    }, 600);
+      }, 350);
+    }, 200);
   }
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 900);
+        }, 350);
       }
     });
   }, [isLoaded]);
@@ -99,22 +99,19 @@ export default Loading;
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
+  // Fast cosmetic progress while the real bottleneck is network + 3D decode.
+  // (The old 50→92 phase used a 2s tick and could add well over a minute artificially.)
   let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
+    if (percent < 55) {
+      percent = Math.min(55, percent + 4 + Math.round(Math.random() * 4));
+      setLoading(percent);
+    } else if (percent < 88) {
+      percent = Math.min(88, percent + 2 + Math.round(Math.random() * 3));
       setLoading(percent);
     } else {
       clearInterval(interval);
-      interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
-        if (percent > 91) {
-          clearInterval(interval);
-        }
-      }, 2000);
     }
-  }, 100);
+  }, 120);
 
   function clear() {
     clearInterval(interval);
