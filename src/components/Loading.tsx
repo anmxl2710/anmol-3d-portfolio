@@ -97,11 +97,35 @@ const Loading = ({ percent }: { percent: number }) => {
 export default Loading;
 
 export const setProgress = (setLoading: (value: number) => void) => {
-  let percent: number = 0;
+  let percent = 0;
+  let interval: ReturnType<typeof setInterval> | undefined;
 
-  // Fast cosmetic progress while the real bottleneck is network + 3D decode.
-  // (The old 50→92 phase used a 2s tick and could add well over a minute artificially.)
-  let interval = setInterval(() => {
+  const stop = () => {
+    if (interval !== undefined) {
+      clearInterval(interval);
+      interval = undefined;
+    }
+  };
+
+  // While the GLTF + decrypt + parse runs, creep 88 → 99 on a curve so the bar
+  // never looks frozen (the real wait can be 10–40s on slow networks).
+  const startWaitPhase = () => {
+    const waitStart = Date.now();
+    stop();
+    interval = setInterval(() => {
+      const elapsed = Date.now() - waitStart;
+      const next = Math.min(
+        99,
+        Math.floor(88 + 11 * (1 - Math.exp(-elapsed / 5500)))
+      );
+      if (next > percent) {
+        percent = next;
+        setLoading(percent);
+      }
+    }, 200);
+  };
+
+  interval = setInterval(() => {
     if (percent < 55) {
       percent = Math.min(55, percent + 4 + Math.round(Math.random() * 4));
       setLoading(percent);
@@ -109,25 +133,26 @@ export const setProgress = (setLoading: (value: number) => void) => {
       percent = Math.min(88, percent + 2 + Math.round(Math.random() * 3));
       setLoading(percent);
     } else {
-      clearInterval(interval);
+      stop();
+      startWaitPhase();
     }
   }, 120);
 
   function clear() {
-    clearInterval(interval);
+    stop();
     setLoading(100);
   }
 
   function loaded() {
     return new Promise<number>((resolve) => {
-      clearInterval(interval);
+      stop();
       interval = setInterval(() => {
         if (percent < 100) {
           percent++;
           setLoading(percent);
         } else {
           resolve(percent);
-          clearInterval(interval);
+          stop();
         }
       }, 2);
     });
