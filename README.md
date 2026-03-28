@@ -4,7 +4,7 @@ Interactive 3D portfolio for **Anmol Goswami** (AI / ML engineer), built with Re
 
 **Live site:** [https://anmxl2710.github.io/anmol-3d-portfolio/](https://anmxl2710.github.io/anmol-3d-portfolio/) (deploys from `main` via GitHub Actions; in repo **Settings → Pages**, set source to **GitHub Actions** the first time).
 
-![Portfolio Preview](public/images/preview1.png)
+![Portfolio Preview](public/images/image.png)
 
 ## Table of Contents
 
