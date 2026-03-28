@@ -6,6 +6,8 @@ interface Props {
   alt?: string;
   video?: string;
   link?: string;
+  loading?: "eager" | "lazy";
+  fetchPriority?: "high" | "low" | "auto";
 }
 
 const WorkImage = (props: Props) => {
@@ -36,7 +38,15 @@ const WorkImage = (props: Props) => {
             <MdArrowOutward />
           </div>
         )}
-        <img src={props.image} alt={props.alt} />
+        <img
+          src={props.image}
+          alt={props.alt ?? ""}
+          loading={props.loading ?? "lazy"}
+          decoding="async"
+          {...(props.fetchPriority
+            ? { fetchPriority: props.fetchPriority }
+            : {})}
+        />
         {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
       </a>
     </div>

@@ -17,7 +17,7 @@ const projects = [
     title: "Animal Intrusion Detection",
     category: "Real-time vision with MobileNet SSD",
     tools: "Python, OpenCV DNN, MobileNet SSD, Pygame, motion tracking, alarms",
-    image: publicAsset("images/radix.png"),
+    image: publicAsset("images/react2.webp"),
     link: "https://github.com/anmxl2710",
   },
   {
@@ -25,7 +25,7 @@ const projects = [
     category: "Computer vision for classrooms",
     tools:
       "Python, OpenCV, NumPy, Pandas — 95% accuracy, 500 concurrent users",
-    image: publicAsset("images/sapphire.png"),
+    image: publicAsset("images/node2.webp"),
     link: "https://github.com/anmxl2710",
   },
 ];
@@ -111,6 +111,8 @@ const Work = () => {
                         image={project.image}
                         alt={project.title}
                         link={project.link}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        fetchPriority={index === 0 ? "high" : "low"}
                       />
                     </div>
                   </div>
