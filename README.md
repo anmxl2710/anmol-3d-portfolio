@@ -2,7 +2,7 @@
 
 Interactive 3D portfolio for **Anmol Goswami** (AI / ML engineer), built with React, TypeScript, Three.js, React Three Fiber, and GSAP—animated sections, character scene, custom cursor, and scroll-driven motion.
 
-**Live site:** Deploy `dist/` after `npm run build` (for example Netlify or GitHub Pages).
+**Live site:** [https://anmxl2710.github.io/anmol-3d-portfolio/](https://anmxl2710.github.io/anmol-3d-portfolio/) (deploys from `main` via GitHub Actions; in repo **Settings → Pages**, set source to **GitHub Actions** the first time).
 
 ![Portfolio Preview](public/images/preview1.png)
 

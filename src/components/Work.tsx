@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import { publicAsset } from "../basePath";
 
 const projects = [
   {
@@ -9,14 +10,14 @@ const projects = [
     category: "Auction-based multi-agent NLP & robotics",
     tools:
       "Node.js, React, Python, spaCy, Flask, Gazebo, REST, WebSockets, ML microservices",
-    image: "/images/preview1.png",
+    image: publicAsset("images/preview1.png"),
     link: "https://github.com/anmxl2710",
   },
   {
     title: "Animal Intrusion Detection",
     category: "Real-time vision with MobileNet SSD",
     tools: "Python, OpenCV DNN, MobileNet SSD, Pygame, motion tracking, alarms",
-    image: "/images/radix.png",
+    image: publicAsset("images/radix.png"),
     link: "https://github.com/anmxl2710",
   },
   {
@@ -24,7 +25,7 @@ const projects = [
     category: "Computer vision for classrooms",
     tools:
       "Python, OpenCV, NumPy, Pandas — 95% accuracy, 500 concurrent users",
-    image: "/images/sapphire.png",
+    image: publicAsset("images/sapphire.png"),
     link: "https://github.com/anmxl2710",
   },
 ];

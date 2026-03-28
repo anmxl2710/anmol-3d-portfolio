@@ -45,7 +45,11 @@ const Loading = ({ percent }: { percent: number }) => {
   return (
     <>
       <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
+        <a
+          href={`${import.meta.env.BASE_URL}#`}
+          className="loader-title"
+          data-cursor="disable"
+        >
           AG
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
